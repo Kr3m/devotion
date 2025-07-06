@@ -851,10 +851,16 @@ void FinishSpawningItem( gentity_t *ent ) {
 	if ( ent->item->giType == IT_POWERUP ) {
 		float	respawn;
 
-		respawn = 45 + crandom() * 15;
+		// For the first spawn, all powerups use the same random delay
+		if ( !level.firstPowerupSpawnSet ) {
+			respawn = 45 + crandom() * 15;
+			level.firstPowerupSpawnTime = level.time + respawn * 1000;
+			level.firstPowerupSpawnSet = qtrue;
+		}
+		
 		ent->s.eFlags |= EF_NODRAW;
 		ent->r.contents = 0;
-		ent->nextthink = level.time + respawn * 1000;
+		ent->nextthink = level.firstPowerupSpawnTime;
 		ent->think = RespawnItem;
 		return;
 	}

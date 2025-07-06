@@ -799,6 +799,10 @@ typedef struct {
 	int			numSpawnVarChars;
 	char		spawnVarChars[MAX_SPAWN_VARS_CHARS];
 
+	// powerup spawn control
+	qboolean	firstPowerupSpawnSet;		// true if first powerup spawn time has been determined
+	int			firstPowerupSpawnTime;		// the time when all powerups should first spawn
+
 	// intermission state
 	int			intermissionQueued;		// intermission was qualified, but
 										// wait INTERMISSION_DELAY_TIME before
